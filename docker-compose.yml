@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  webserver:
+    image: toasterlint/php-apache-mysql
+    container_name: 'jgwill-lamp-200526'
+    environment:
+      MYSQL_ROOT_PASSWORD: tiger
+      MYSQL_DATABASE: png
+      MYSQL_USER: png
+      MYSQL_PASSWORD: png
+    restart: 'always'
+    ports:
+      - "80:80"
+        #- "443:443"
+      - "3306:3306"
+    volumes:
+      - ${DOCUMENT_ROOT-./www}:/var/www/html
+        #      - ${PHP_INI-./config/php/php.ini}:/usr/local/etc/php/php.ini
+        #- ${VHOSTS_DIR-./config/vhosts}:/etc/apache2/sites-enabled
+      - ${LOG_DIR-./logs/apache2}:/var/log/apache2
+      - ${MYSQL_DATA_DIR-./data/mysql}:/var/lib/mysql
+      - ${MYSQL_LOG_DIR-./logs/mysql}:/var/log/mysql
